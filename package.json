@@ -1,0 +1,22 @@
+{
+  "name": "weather_api_project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/axios": "^0.9.36",
+    "@types/express": "^4.17.21",
+    "@types/mongoose": "^5.11.96",
+    "@types/typescript": "^0.4.29",
+    "axios": "^1.7.2",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.1",
+    "typescript": "^5.5.4"
+  }
+}
