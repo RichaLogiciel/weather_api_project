@@ -1,7 +1,7 @@
 import axios from "axios";
 
 interface weatherResponse {
-    name: string,
+    name: string,   
     main: {
         temp: number;
     },
@@ -28,6 +28,7 @@ export const fetchWeatherData = async(city: string): Promise<customWeatherData> 
             description: data.weather[0].description                                                     
         };
     } catch(error) {
+        console.error("Error:", error);
         console.error('Error Fetching weather data:', error);
         throw error;
     }
