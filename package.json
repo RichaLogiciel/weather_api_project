@@ -2,8 +2,11 @@
   "name": "weather_api_project",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "start": "npx tsx ts/index.ts",
+    "watch": "npx tsx watch ts/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -12,11 +15,18 @@
   "devDependencies": {
     "@types/axios": "^0.9.36",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
     "@types/mongoose": "^5.11.96",
     "@types/typescript": "^0.4.29",
     "axios": "^1.7.2",
     "express": "^4.19.2",
-    "mongoose": "^8.5.1",
+    "jest": "^29.7.0",
+    "mongoose": "^8.5.2",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.16.5",
     "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
   }
 }
