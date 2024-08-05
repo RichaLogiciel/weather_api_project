@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getWeatherHistory = exports.getWeather = void 0;
+exports.getWeather = void 0;
 const weather_1 = require("../models/weather");
 const weatherServices_1 = require("../services/weatherServices");
 const getWeather = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -17,26 +17,22 @@ const getWeather = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const weatherData = yield (0, weatherServices_1.fetchWeatherData)(city);
         if (!weatherData) {
-            return res.status(400).json({ msg: "Invalid" });
+            return res.status(400).json({ msg: "Invalid city name" });
         }
-        const weather = new weather_1.weatherModel(weatherData);
+        const weather = new weather_1.weatherModel({
+            city: weatherData.name,
+            temperature: weatherData.main.temp,
+            description: weatherData.weather[0].description,
+            date: new Date() // Ensure date field is set
+        });
         const savedData = yield weather.save();
         console.log(savedData);
-        return res.status(200).json(weather);
+        return res.status(200).json(savedData);
     }
     catch (error) {
-        console.log("Didn't find error", error);
-        return res.status(500).json({ msg: " 00 Internal Server error" });
-    }
-});
-exports.getWeather = getWeather;
-const getWeatherHistory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const history = yield weather_1.weatherModel.find().sort({ date: -1 });
-        return res.json(history);
-    }
-    catch (error) {
+        console.error("Error:", error.message);
+        console.error("Error Stack:", error.stack);
         return res.status(500).json({ msg: "Internal Server Error" });
     }
 });
-exports.getWeatherHistory = getWeatherHistory;
+exports.getWeather = getWeather;

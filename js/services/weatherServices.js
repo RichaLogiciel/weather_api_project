@@ -15,19 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchWeatherData = void 0;
 const axios_1 = __importDefault(require("axios"));
 const fetchWeatherData = (city) => __awaiter(void 0, void 0, void 0, function* () {
-    const API_KEY = process.env.WEATHER_API_KEY;
+    const API_KEY = 'd15cd8f6c479784d5dd866c489001336';
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
     try {
         const response = yield axios_1.default.get(url);
-        const data = response.data;
-        return {
-            city: data.name,
-            temperature: data.main.temp,
-            description: data.weather[0].description
-        };
+        return response.data;
     }
     catch (error) {
-        console.error('Error Fetching weather data:', error);
+        console.error("Error:", error);
         throw error;
     }
 });

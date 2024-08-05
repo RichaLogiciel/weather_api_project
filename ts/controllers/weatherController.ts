@@ -1,34 +1,34 @@
-import { weatherModel} from '../models/weather';
-import { Request,Response } from 'express';
+import { Request, Response } from 'express';
+import { weatherModel } from '../models/weather';
 import { fetchWeatherData } from '../services/weatherServices';
 
-
-export const getWeather = async(req: Request, res: Response): Promise<Response> => {
+interface weatherResponse {
+    name: string,   
+    main: {
+        temp: number;
+    },
+    weather: Array<{
+        description: string;
+    }>;
+}
+export const getWeather = async (req: Request, res: Response): Promise<Response> => {
     const { city } = req.params;
     try {
         const weatherData = await fetchWeatherData(city);
-        if(!weatherData) {
-            return res.status(400).json({ msg: "Invalid"});
+        if (!weatherData) {
+            return res.status(400).json({ msg: "Invalid city name" });
         }
-        const weather = new weatherModel(weatherData);
+        const weather = new weatherModel({
+            city: weatherData.name,
+            temperature: weatherData.main.temp,
+            description: weatherData.weather[0].description,
+            date: new Date()  // Ensure date field is set
+        });
         const savedData = await weather.save();
         console.log(savedData);
-        return res.status(200).json(weather);
-    }  catch(error) {
-        console.log("Didn't find error", error);
-        return res.status(500).json({ msg: " 00 Internal Server error"});
+        return res.status(200).json(savedData);
+    } catch (error) {
+        console.error("Error:", error);
+        return res.status(500).json({ msg: "Internal Server Error" });
     }
 };
-
-
-export const getWeatherHistory =  async(req: Request, res: Response) => {
-    try {
-        const history = await weatherModel.find().sort({ date: -1});
-        return res.json(history);
-    } catch(error) {
-        return res.status(500).json({ msg: "Internal Server Error"});
-    }
-}
-
-
-

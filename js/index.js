@@ -12,7 +12,7 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 (0, db_1.connection)("mongodb://127.0.0.1:27017/weather_api_project");
 app.use(express_1.default.json());
-app.use('/api', weatherApiRoutes_1.default);
+app.use(weatherApiRoutes_1.default);
 app.listen(PORT, () => {
     console.log(`Server Started running o ${PORT}`);
 });
