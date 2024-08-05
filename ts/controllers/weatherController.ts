@@ -1,4 +1,4 @@
-import {Weather,weatherModel} from '../models/weather';
+import { weatherModel} from '../models/weather';
 import { Request,Response } from 'express';
 import { fetchWeatherData } from '../services/weatherServices';
 

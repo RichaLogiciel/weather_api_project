@@ -1,6 +1,6 @@
 import mongoose,{Schema, Model,Document } from "mongoose";
 
-interface Weather {
+interface Weather extends Document {
     city: string,
     temperature: number,
     description: string,
